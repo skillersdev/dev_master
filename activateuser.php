@@ -155,7 +155,7 @@ if($c1_count==0)
 	
 	
 
-	if($ref_under_count<2)
+	if($ref_under_count<=2)
 	{
 		$cur=date("Y-m-d");
 		$query2=mysqli_query($con,"insert into affiliate_bonus_history ('bid','user_id','referedby','stage1_ref','ref_stage','amt','created') values 
@@ -171,7 +171,7 @@ if($c1_count==0)
 		
 		//echo "less then 2";exit;
 	}
-	elseif($ref_under_count>=2){
+	elseif($ref_under_count>2){
 						
 		
 	        
