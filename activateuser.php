@@ -1,8 +1,10 @@
 <?php
 //header( "refresh:3;url=paymentscod.php" );
+
 include_once ("z_db.php");
 // Inialize session
 session_start();
+
 // Check, if username session is NOT set then this page will jump to login page
 if (!isset($_SESSION['adminidusername'])) {
         print "	<script language='javascript'>	window.location = 'index.php';	</script>";
@@ -22,27 +24,28 @@ $ref_list11=$ref_query11->fetch_array(MYSQLI_ASSOC);
 $ref=$ref_list11['referedby'];
 $userid=$tomake;
 $package=$_GET['package'];
-require_once('../../products/wp-load.php');
-$user_name = $ref_list11['username'];
-    $user_email = $ref_list11['email'];
-    $user_id = username_exists( $user_name );
-    if ( !$user_id ) {
-        $password = $ref_list11['password'];
-        $user_id = wp_create_user( $user_name,$password,$user_email );
-		wp_set_password( $password, $user_id );
-		$user_id_role = new WP_User($user_id);
-		$user_id_role->set_role('seller');
-		$updated1 = update_user_meta( $user_id, 'dokan_enable_selling', 'yes' );
-		$updated2 = update_user_meta( $user_id, 'dokan_publishing', 'no' );
-	} 
-	else
-	{
-		$password = $ref_list11['password'];
-		wp_set_password( $password, $user_id );
-		$user_id_role = new WP_User($user_id);
-		$user_id_role->set_role('seller');
-	}
+// require_once('../../products/wp-load.php');
+// $user_name = $ref_list11['username'];
+//     $user_email = $ref_list11['email'];
+//     $user_id = username_exists( $user_name );
+//     if ( !$user_id ) {
+//         $password = $ref_list11['password'];
+//         $user_id = wp_create_user( $user_name,$password,$user_email );
+// 		wp_set_password( $password, $user_id );
+// 		$user_id_role = new WP_User($user_id);
+// 		$user_id_role->set_role('seller');
+// 		$updated1 = update_user_meta( $user_id, 'dokan_enable_selling', 'yes' );
+// 		$updated2 = update_user_meta( $user_id, 'dokan_publishing', 'no' );
+// 	} 
+// 	else
+// 	{
+// 		$password = $ref_list11['password'];
+// 		wp_set_password( $password, $user_id );
+// 		$user_id_role = new WP_User($user_id);
+// 		$user_id_role->set_role('seller');
+// 	}
 
+//echo $_SESSION['adminidusername']; exit;
 
 $c1=mysqli_query($con,"SELECT  COUNT(*) as STAGETOTUSER FROM affiliate_bonus_history 
  WHERE (user_id = '$userid')");
@@ -146,9 +149,9 @@ if($c1_count==0)
 		$ref_under_user[]= $all_list['user_id'];
 	}
         $ref_under_count=count($ref_under_user);
-	//echo "<pre>";
-	//print_r($ref_under_user);
-	//exit;
+	// echo "<pre>";
+	// print_r($ref_under_user);
+	// exit;
 	
 	
 
@@ -166,7 +169,7 @@ if($c1_count==0)
 		
 		
 		
-		//echo "less then 3";
+		//echo "less then 2";exit;
 	}
 	elseif($ref_under_count>=2){
 						
@@ -201,16 +204,21 @@ if($c1_count==0)
 		}
 		
 		
-		//echo "<pre>";
-		//print_r($s1);
-	               		
+		// echo "<pre>";
+		// print_r($s1);
+	 //    exit;
+
+
 		$stage1_ref=$s1[0];
 		
+		// echo "<pre>";
+		// print_r($stage1_ref);
 		// exit;
 		
 		
 		$cur=date("Y-m-d");
-		$query2=mysqli_query($con,"insert into affiliate_bonus_history ('bid','user_id','referedby','stage1_ref','ref_stage','amt','created') values 
+
+		$query2=mysqli_query($con,"insert into affiliate_bonus_history (`bid`,`user_id`,`referedby`,`stage1_ref`,`ref_stage`,`amt`,`created`) values 
 		('','$luser_id','$ref','$stage1_ref','$ref_stage','$stage_amt','$cur')");
 		
 		$query4=mysqli_query($con,"SELECT  tamount As TotalAmt FROM affiliateuser WHERE username = '$stage1_ref'");
@@ -361,22 +369,30 @@ if($c1_count==0)
 		$p99up=$package_info['stage99_up'];
 		$p100up=$package_info['stage100_up'];
 
-		$indirect_ref_amt=$package_info['indirect_ref_amt'];
-			
+		 $indirect_ref_amt=$package_info['indirect_ref_amt'];
+		
 			for($i=1;$i<=100;$i++){
 
-				$pup=$p.$i."up";
+				$pup="p".$i."up";
+				// echo $current_tot;
+				// echo $$pup;
+				
+				if($current_tot>=$$pup && $current_tot!=0 && $curr_stage ==$i){
 
-				if($current_tot>=$pup){
+					$query8=mysqli_query($con,"SELECT  count(*) as upgraded_status FROM affliate_stage_bonus 
+					WHERE user_id = '$stage1_ref' AND upgrade_stage='$curr_stage' ");
+					$row8=$query8->fetch_array(MYSQLI_ASSOC);
+					$upgrade_his=$row8['upgraded_status'];
 					
 					if($upgrade_his==0){
-						$tot=$pup;	
+						$tot=$$pup;	
 						$query2=mysqli_query($con,"insert into affliate_stage_bonus values ('','$stage1_ref','$curr_ref','$curr_stage','$tot','adminadmin','$cur')");	
 						
 						$query9=mysqli_query($con,"SELECT  SUM(tamount) As TotalAmt FROM affiliateuser WHERE username = '$stage1_ref'");
 						$row9=$query9->fetch_array(MYSQLI_ASSOC);
 						$tot_amt9=($row9['TotalAmt']-$tot);
 						$query=mysqli_query($con,"update affiliateuser set tamount='".$tot_amt9."'where username='".$stage1_ref."'");
+						$current_tot=$tot_amt9;
 					}	
 				}
 			}	
@@ -566,17 +582,31 @@ if($c1_count==0)
 			$p100up=$package_info['stage100_up'];
 			
 			for($i=1;$i<=100;$i++){
+
+				$pup="p".$i."up";
+
 				if($curr_stage==$i){
-					if($current_tot>=($p.$i."up")){
+
+
+					$query8=mysqli_query($con,"SELECT  count(*) as upgraded_status FROM affliate_stage_bonus 
+					WHERE user_id = '$stage1_ref' AND upgrade_stage='$curr_stage' ");
+					$row8=$query8->fetch_array(MYSQLI_ASSOC);
+					$upgrade_his=$row8['upgraded_status'];
+					
+					if($upgrade_his==0){
+						
+
+					if($current_tot>=$$pup){
 						
 						if($upgrade_his==0){
-							$tot=$p.$i."up";	
+							$tot=$$pup;		
 							$query2=mysqli_query($con,"insert into affliate_stage_bonus values ('','$ref','$curr_ref','$curr_stage','$tot','adminadmin','$cur')");	
 							
 							$query9=mysqli_query($con,"SELECT  SUM(tamount) As TotalAmt FROM affiliateuser WHERE username = '$ref'");
 							$row9=$query9->fetch_array(MYSQLI_ASSOC);
 							$tot_amt9=($row9['TotalAmt']-$tot);
 							$query=mysqli_query($con,"update affiliateuser set tamount='".$tot_amt9."'where username='".$ref."'");
+							$current_tot=$tot_amt9;
 						}	
 					}
 				}
