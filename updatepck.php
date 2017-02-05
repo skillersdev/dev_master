@@ -352,6 +352,7 @@ while($row = mysqli_fetch_array($result))
 	
 	$validity="$row[validity]";
 	$indirect_ref_amt="$row[indirect_ref_amt]";
+	$pay_via_voucher="$row[pay_via_voucher]";
 	}
 					  
 					  ?>  
@@ -979,6 +980,10 @@ while($row = mysqli_fetch_array($result))
                         <input type="hidden" value="<?php print $validity ?>" name="old_renewdays">
 						<input type="text" value="<?php print $validity ?>" class="form-control" placeholder="Enter '0' for no expiry or enter no of days like 30 (1 month), 60 (2 months), 365 (1 year) - This would be the expiry date for user account" name="renewdays">
                       </div>
+					  <div class="form-group">
+					  <label>Pay Via Voucher (The entered amount will be duducted from marketer account when using payment type as "Marketer Balance")</label>
+                        <input type="text" value="<?php print $pay_via_voucher ?>" class="form-control" name="pay_via_voucher">
+					  </div>
 					  
 					  
 					  

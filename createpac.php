@@ -5,14 +5,12 @@ include('z_db.php'); //connection details
 $status = "OK"; //initial status
 $msg="";
 $pname=mysqli_real_escape_string($con,$_POST['pckname']); //fetching details through post method
-$pdetail = mysqli_real_escape_string($con,$_POST['pckdetail']);
+$pdetail =mysqli_real_escape_string( $con,$_POST['pckdetail']);
 $pprice = mysqli_real_escape_string($con,$_POST['pckprice']);
 $pcurid = mysqli_real_escape_string($con,$_POST['currency']);
-$pckmpay = mysqli_real_escape_string($con,$_POST['pckmpay']);
+$pckmpay =mysqli_real_escape_string($con, $_POST['pckmpay']);
 $pcksbonus = mysqli_real_escape_string($con,$_POST['pcksbonus']);
 $pcktax = mysqli_real_escape_string($con,$_POST['pcktax']);
-$pact = mysqli_real_escape_string($con,$_POST['pckact']);
-$pidmain = mysqli_real_escape_string($con,$_POST['pckmainid']);
 $p1 = mysqli_real_escape_string($con,$_POST['lev1']);
 $p2 = mysqli_real_escape_string($con,$_POST['lev2']);
 $p3 = mysqli_real_escape_string($con,$_POST['lev3']);
@@ -33,7 +31,6 @@ $p17 = mysqli_real_escape_string($con,$_POST['lev17']);
 $p18 = mysqli_real_escape_string($con,$_POST['lev18']);
 $p19 = mysqli_real_escape_string($con,$_POST['lev19']);
 $p20 = mysqli_real_escape_string($con,$_POST['lev20']);
-
 
 $p21 = mysqli_real_escape_string($con,$_POST['lev21']);
 $p22 = mysqli_real_escape_string($con,$_POST['lev22']);
@@ -122,9 +119,6 @@ $p97 = mysqli_real_escape_string($con,$_POST['lev97']);
 $p98 = mysqli_real_escape_string($con,$_POST['lev98']);
 $p99 = mysqli_real_escape_string($con,$_POST['lev99']);
 $p100 = mysqli_real_escape_string($con,$_POST['lev100']);
-
-
-
 
 $p1up=mysqli_real_escape_string($con,$_POST['stage_uc1']);
 $p2up=mysqli_real_escape_string($con,$_POST['stage_uc2']);
@@ -237,17 +231,13 @@ $p99up=mysqli_real_escape_string($con,$_POST['stage_uc99']);
 $p100up=mysqli_real_escape_string($con,$_POST['stage_uc100']);
 
 
-
-
-
-
-
 $inref_bonus=mysqli_real_escape_string($con,$_POST['indir_ref_amt']);
 $pay_via_voucher=mysqli_real_escape_string($con,$_POST['pay_via_voucher']);
 
+
 $gateway = 0;
-$old_renewdays = mysqli_real_escape_string($con,$_POST['old_renewdays']);
 $renewdays = mysqli_real_escape_string($con,$_POST['renewdays']);
+
 
 if ( strlen($pname) < 2 ){
 $msg=$msg."Package Name Should Have Minimum 2 Characters.<BR>";
@@ -259,248 +249,411 @@ $status= "NOTOK";}
 
 if($status=="OK")
 {
-//$res1=mysqli_query($con,"update packages set name='$pname',price='$pprice',currency='$pcurid',details='$pdetail',tax='$pcktax',mpay='$pckmpay',sbonus='$pcksbonus',active='$pact',level1='$p1',level2='$p2',level3='$p3',level4='$p4',level5='$p5',level6='$p6',level7='$p7',level8='$p8',level9='$p9',level10='$p10',level11='$p11',level12='$p12',level13='$p13',level14='$p14',level15='$p15',level16='$p16',level17='$p17',level18='$p18',level19='$p19',level20='$p20',gateway='$gateway',validity='$renewdays' where id=$pidmain");
-$res1=mysqli_query($con,"update packages set name='$pname',price='$pprice',currency='$pcurid',details='$pdetail',
-tax='$pcktax',mpay='$pckmpay',sbonus='$pcksbonus',active='$pact',
-level1='$p1',
-level2='$p2',
-level3='$p3',
-level4='$p4',
-level5='$p5',
-level6='$p6',
-level7='$p7',
-level8='$p8',
-level9='$p9',
-level10='$p10',
-level11='$p11',level12='$p12',level13='$p13',level14='$p14',level15='$p15',level16='$p16',level17='$p17',level18='$p18',level19='$p19',
-level20='$p20',
+//$res1=mysqli_query($con,"INSERT INTO packages (name,price,currency,details,tax,mpay,sbonus,cdate,active,level1,level2,level3,level4,level5,level6,level7,level8,level9,level10,level11,level12,level13,level14,level15,level16,level17,level18,level19,level20,gateway,validity) VALUES ('$pname', '$pprice', '$pcurid', '$pdetail','$pcktax', '$pckmpay', '$pcksbonus', NOW(), 1, '$p1','$p2','$p3','$p4','$p5','$p6','$p7','$p8','$p9','$p10','$p11','$p12','$p13','$p14','$p15','$p16','$p17','$p18','$p19','$p20','$gateway','$renewdays')");
+$res1=mysqli_query($con,"INSERT INTO packages 
+(name,price,currency,details,tax,mpay,sbonus,cdate,active,level1,stage1_up,level2,stage2_up,level3,stage3_up,level4,stage4_up,level5,stage5_up,level6,level7,level8,level9,level10,level11,level12,level13,level14,level15,level16,level17,level18,level19,level20,
+level21,
+level22,
+level23,
+level24,
+level25,
+level26,
+level27,
+level28,
+level29,
+level30,
 
-level21='$p21',
-level22='$p22',
-level23='$p23',
-level24='$p24',
-level25='$p25',
-level26='$p26',
-level27='$p27',
-level28='$p28',
-level29='$p29',
-level30='$p30',
+level31,
+level32,
+level33,
+level34,
+level35,
+level36,
+level37,
+level38,
+level39,
+level40,
 
+level41,
+level42,
+level43,
+level44,
+level45,
+level46,
+level47,
+level48,
+level49,
+level50,
 
-level31='$p31',
-level32='$p32',
-level33='$p33',
-level34='$p34',
-level35='$p35',
-level36='$p36',
-level37='$p37',
-level38='$p38',
-level39='$p39',
-level40='$p40',
+level51,
+level52,
+level53,
+level54,
+level55,
+level56,
+level57,
+level58,
+level59,
+level60,
 
-level41='$p41',
-level42='$p42',
-level43='$p43',
-level44='$p44',
-level45='$p45',
-level46='$p46',
-level47='$p47',
-level48='$p48',
-level49='$p49',
-level50='$p50',
+level61,
+level62,
+level63,
+level64,
+level65,
+level66,
+level67,
+level68,
+level69,
+level70,
 
-level51='$p51',
-level52='$p52',
-level53='$p53',
-level54='$p54',
-level55='$p55',
-level56='$p56',
-level57='$p57',
-level58='$p58',
-level59='$p59',
-level60='$p60',
+level71,
+level72,
+level73,
+level74,
+level75,
+level76,
+level77,
+level78,
+level79,
+level80,
 
-level61='$p61',
-level62='$p62',
-level63='$p63',
-level64='$p64',
-level65='$p65',
-level66='$p66',
-level67='$p67',
-level68='$p68',
-level69='$p69',
-level70='$p70',
+level81,
+level82,
+level83,
+level84,
+level85,
+level86,
+level87,
+level88,
+level89,
+level90,
 
-level71='$p71',
-level72='$p72',
-level73='$p73',
-level74='$p74',
-level75='$p75',
-level76='$p76',
-level77='$p77',
-level78='$p78',
-level79='$p79',
-level80='$p80',
+level91,
+level92,
+level93,
+level94,
+level95,
+level96,
+level97,
+level98,
+level99,
+level100,
 
-level81='$p81',
-level82='$p82',
-level83='$p83',
-level84='$p84',
-level85='$p85',
-level86='$p86',
-level87='$p87',
-level88='$p88',
-level89='$p89',
-level90='$p90',
+stage6_up,
+stage7_up,
+stage8_up,
+stage9_up,
+stage10_up,
 
-level91='$p91',
-level92='$p92',
-level93='$p93',
-level94='$p94',
-level95='$p95',
-level96='$p96',
-level97='$p97',
-level98='$p98',
-level99='$p99',
-level100='$p100',
+stage11_up,
+stage12_up,
+stage13_up,
+stage14_up,
+stage15_up,
+stage16_up,
+stage17_up,
+stage18_up,
+stage19_up,
+stage20_up,
 
-stage1_up='$p1up',
-stage2_up='$p2up',
-stage3_up='$p3up',
-stage4_up='$p4up',
-stage5_up='$p5up',
-stage6_up='$p6up',
-stage7_up='$p7up',
-stage8_up='$p8up',
-stage9_up='$p9up',
-stage10_up='$p10up',
+stage21_up,
+stage22_up,
+stage23_up,
+stage24_up,
+stage25_up,
+stage26_up,
+stage27_up,
+stage28_up,
+stage29_up,
+stage30_up,
 
-stage11_up='$p11up',
-stage12_up='$p12up',
-stage13_up='$p13up',
-stage14_up='$p14up',
-stage15_up='$p15up',
-stage16_up='$p16up',
-stage17_up='$p17up',
-stage18_up='$p18up',
-stage19_up='$p19up',
-stage20_up='$p20up',
+stage31_up,
+stage32_up,
+stage33_up,
+stage34_up,
+stage35_up,
+stage36_up,
+stage37_up,
+stage38_up,
+stage39_up,
+stage40_up,
 
-stage21_up='$p21up',
-stage22_up='$p22up',
-stage23_up='$p23up',
-stage24_up='$p24up',
-stage25_up='$p25up',
-stage26_up='$p26up',
-stage27_up='$p27up',
-stage28_up='$p28up',
-stage29_up='$p29up',
-stage30_up='$p30up',
+stage41_up,
+stage42_up,
+stage43_up,
+stage44_up,
+stage45_up,
+stage46_up,
+stage47_up,
+stage48_up,
+stage49_up,
+stage50_up,
 
-stage31_up='$p31up',
-stage32_up='$p32up',
-stage33_up='$p33up',
-stage34_up='$p34up',
-stage35_up='$p35up',
-stage36_up='$p36up',
-stage37_up='$p37up',
-stage38_up='$p38up',
-stage39_up='$p39up',
-stage40_up='$p40up',
+stage51_up,
+stage52_up,
+stage53_up,
+stage54_up,
+stage55_up,
+stage56_up,
+stage57_up,
+stage58_up,
+stage59_up,
+stage60_up,
 
-stage41_up='$p41up',
-stage42_up='$p42up',
-stage43_up='$p43up',
-stage44_up='$p44up',
-stage45_up='$p45up',
-stage46_up='$p46up',
-stage47_up='$p47up',
-stage48_up='$p48up',
-stage49_up='$p49up',
-stage50_up='$p50up',
-
-stage51_up='$p51up',
-stage52_up='$p52up',
-stage53_up='$p53up',
-stage54_up='$p54up',
-stage55_up='$p55up',
-stage56_up='$p56up',
-stage57_up='$p57up',
-stage58_up='$p58up',
-stage59_up='$p59up',
-stage60_up='$p60up',
-
-stage61_up='$p61up',
-stage62_up='$p62up',
-stage63_up='$p63up',
-stage64_up='$p64up',
-stage65_up='$p65up',
-stage66_up='$p66up',
-stage67_up='$p67up',
-stage68_up='$p68up',
-stage69_up='$p69up',
-stage70_up='$p70up',
-
-stage71_up='$p71up',
-stage72_up='$p72up',
-stage73_up='$p73up',
-stage74_up='$p74up',
-stage75_up='$p75up',
-stage76_up='$p76up',
-stage77_up='$p77up',
-stage78_up='$p78up',
-stage79_up='$p79up',
-stage80_up='$p80up',
-
-stage81_up='$p81up',
-stage82_up='$p82up',
-stage83_up='$p83up',
-stage84_up='$p84up',
-stage85_up='$p85up',
-stage86_up='$p86up',
-stage87_up='$p87up',
-stage88_up='$p88up',
-stage89_up='$p8up',
-stage90_up='$p90up',
-
-stage91_up='$p91up',
-stage92_up='$p92up',
-stage93_up='$p93up',
-stage94_up='$p94up',
-stage95_up='$p95up',
-stage96_up='$p96up',
-stage97_up='$p97up',
-stage98_up='$p98up',
-stage99_up='$p99up',
-stage100_up='$p100up',
+stage61_up,
+stage62_up,
+stage63_up,
+stage64_up,
+stage65_up,
+stage66_up,
+stage67_up,
+stage68_up,
+stage69_up,
+stage70_up,
 
 
+stage71_up,
+stage72_up,
+stage73_up,
+stage74_up,
+stage75_up,
+stage76_up,
+stage77_up,
+stage78_up,
+stage79_up,
+stage80_up,
 
-gateway='$gateway',validity='$renewdays',indirect_ref_amt='$inref_bonus',pay_via_voucher='$pay_via_voucher' where id=$pidmain");
+stage81_up,
+stage82_up,
+stage83_up,
+stage84_up,
+stage85_up,
+stage86_up,
+stage87_up,
+stage88_up,
+stage89_up,
+stage90_up,
+
+stage91_up,
+stage92_up,
+stage93_up,
+stage94_up,
+stage95_up,
+stage96_up,
+stage97_up,
+stage98_up,
+stage99_up,
+stage100_up,
+
+
+gateway,validity,indirect_ref_amt,pay_via_voucher) VALUES 
+('$pname', '$pprice', '$pcurid', '$pdetail','$pcktax', '$pckmpay', '$pcksbonus', NOW(), 1, 
+'$p1','$p1up','$p2','$p2up','$p3','$p3up','$p4','$p4up','$p5','$p5up','$p6','$p7','$p8','$p9','$p10','$p11','$p12','$p13','$p14','$p15','$p16','$p17','$p18','$p19',
+'$p20',
+
+'$p21',
+'$p22',
+'$p23',
+'$p24',
+'$p25',
+'$p26',
+'$p27',
+'$p28',
+'$p29',
+'$p30',
+
+'$p31',
+'$p32',
+'$p33',
+'$p34',
+'$p35',
+'$p36',
+'$p37',
+'$p38',
+'$p39',
+'$p40',
+
+'$p41',
+'$p42',
+'$p43',
+'$p44',
+'$p45',
+'$p46',
+'$p47',
+'$p48',
+'$p49',
+'$p50',
+
+'$p51',
+'$p52',
+'$p53',
+'$p54',
+'$p55',
+'$p56',
+'$p57',
+'$p58',
+'$p59',
+'$p60',
+
+'$p61',
+'$p62',
+'$p63',
+'$p64',
+'$p65',
+'$p66',
+'$p67',
+'$p68',
+'$p69',
+'$p70',
+
+'$p71',
+'$p72',
+'$p73',
+'$p74',
+'$p75',
+'$p76',
+'$p77',
+'$p78',
+'$p79',
+'$p80',
+
+'$p81',
+'$p82',
+'$p83',
+'$p84',
+'$p85',
+'$p86',
+'$p87',
+'$p88',
+'$p89',
+'$p90',
+
+'$p91',
+'$p92',
+'$p93',
+'$p94',
+'$p95',
+'$p96',
+'$p97',
+'$p98',
+'$p99',
+'$p100',
+
+'$p6up',
+'$p7up',
+'$p8up',
+'$p9up',
+'$p10up',
+
+'$p11up',
+'$p12up',
+'$p13up',
+'$p14up',
+'$p15up',
+'$p16up',
+'$p17up',
+'$p18up',
+'$p19up',
+'$p20up',
+
+'$p21up',
+'$p22up',
+'$p23up',
+'$p24up',
+'$p25up',
+'$p26up',
+'$p27up',
+'$p28up',
+'$p29up',
+'$p30up',
+
+'$p31up',
+'$p32up',
+'$p33up',
+'$p34up',
+'$p35up',
+'$p36up',
+'$p37up',
+'$p38up',
+'$p39up',
+'$p40up',
+
+'$p41up',
+'$p42up',
+'$p43up',
+'$p44up',
+'$p45up',
+'$p46up',
+'$p47up',
+'$p48up',
+'$p49up',
+'$p50up',
+
+'$p51up',
+'$p52up',
+'$p53up',
+'$p54up',
+'$p55up',
+'$p56up',
+'$p57up',
+'$p58up',
+'$p59up',
+'$p60up',
+
+'$p61up',
+'$p62up',
+'$p63up',
+'$p64up',
+'$p65up',
+'$p66up',
+'$p67up',
+'$p68up',
+'$p69up',
+'$p70up',
+
+'$p71up',
+'$p72up',
+'$p73up',
+'$p74up',
+'$p75up',
+'$p76up',
+'$p77up',
+'$p78up',
+'$p79up',
+'$p80up',
+
+'$p81up',
+'$p82up',
+'$p83up',
+'$p84up',
+'$p85up',
+'$p86up',
+'$p87up',
+'$p88up',
+'$p89up',
+'$p90up',
+
+'$p91up',
+'$p92up',
+'$p93up',
+'$p94up',
+'$p95up',
+'$p96up',
+'$p97up',
+'$p98up',
+'$p99up',
+'$p100up',
+
+'$gateway','$renewdays','$inref_bonus','$pay_via_voucher')");
 
 if($res1)
 {
-	$renewdays = intval($renewdays);
-	$old_renewdays = intval($old_renewdays);
-	/* Check whether renewdays modified */
-	if ($old_renewdays != $renewdays)
-	{
-		if ($old_renewdays < $renewdays)
-		{
-			$days_diff = $renewdays - $old_renewdays;
-			mysqli_query($con, "UPDATE affiliateuser SET `expiry`=DATE_ADD(`expiry`,INTERVAL $days_diff DAY) WHERE `pcktaken` = $pidmain");
-		}
-		else
-		{
-			$days_diff = $old_renewdays - $renewdays;
-			mysqli_query($con, "UPDATE affiliateuser SET `expiry`=DATE_SUB(`expiry`,INTERVAL $days_diff DAY) WHERE `pcktaken` = $pidmain");
-		}
-	}
-	print "Package updated...!!! Redirecting...";
+print "Package Created...!!! Redirecting...";
 }
 else
 {
-	print "error!!!! try again later or ask for help from your administrator!!!! Redirecting...";
+print "error!!!! try again later or ask for help from your administrator!!!! Redirecting...";
 }
 
 
