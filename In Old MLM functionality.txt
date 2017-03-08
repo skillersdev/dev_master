@@ -1,0 +1,36 @@
+In Old MLM functionality
+1.Multilevel marketing functionality
+2.based on 3 downline marketer will arrange in tree formation
+3.multiple package creationg
+4. 5 level bonus and upgradation detection 
+5.indirect referal and signup bonus option
+6.ecommerce shopping webporal with integrated with mlm login account
+7.seller dashboard and allow sellers to add the products
+8.ecommerce basic ui interface
+
+
+In New functionality
+1.rewamp the entier flow of tree formation based on two downline
+2.extended the levels to 100 levels with (direct referal and upgradation cost detection till 100 levels)
+3.implement the pay via voucher option in package setting
+4.implement the earning setting to all the package seperatly,based on this restricted the earning based on downline count.
+5.allow marketer to buy the package using the voucher mentioned in the package setting
+6.update the validity while did the changes made in the package setting it will update the marketers account validity
+7.show package expiration notification before seven days in dashboard
+8.implement the functionality to restrict transfer voucher option after package expire
+9.implement the condition(above 50) for transfering their balnace to other marketer
+10.shown the marketer downline list for each marketer
+11.implement the payment mode condition based on the packages (show paypal alone when registerunder 3usd package)
+12.giving the link in dashboard for joining other package and to joing the other package they need   to use pay via voucher option 
+
+13 implemented the design like the alibaba.com ,responsive design
+14 change the ecommerce shopping site as the landing page
+15 implement the credit option in product adding through seller account anf through the admin panel
+16 implement the function that allow customer to use the credit to buy another product (integrated as payment option in payement page while shopping)
+17.implement the new option to create seller account by clicking the buttopm in manage user page
+
+
+
+
+
+
